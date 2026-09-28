@@ -1,5 +1,7 @@
 from enum import Enum
 from htmlnode import LeafNode
+from raw_helpers import extract_markdown_images, extract_markdown_links
+import re
 class TextType(Enum):
     TEXT="plain"
     BOLD="bold"
@@ -59,3 +61,67 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
     for old_node in old_nodes:
         new_nodes.extend(convert(old_node,delimiter,text_type))
     return new_nodes
+
+def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
+    new_nodes = []
+    def split_node_images(node:TextNode)->list[TextNode]:
+        imgs = extract_markdown_images(node.text)
+        imlinks = [f"![{alt}]({url})" for alt, url in imgs]
+        inds = [ match.start() for match in re.finditer(r"\!\[.*?\]\(.*?\)",node.text)]
+        sti = 0
+        nodes = []
+        for i,ind in enumerate(inds):
+            if sti < ind:
+                s = node.text[sti:ind]
+                nodes.append(TextNode(s,TextType.TEXT))
+            ln = len(imlinks[i])
+            sti = ind + ln
+            nodes.append(TextNode(imgs[i][0],TextType.IMAGE,imgs[i][1]))
+        if sti < len(node.text):
+            s = node.text[sti:len(node.text)]
+            nodes.append(TextNode(s,TextType.TEXT))
+        return nodes
+    for ond in old_nodes:
+        if ond.text_type != TextType.TEXT:
+            new_nodes.append(ond)
+            continue
+        new_nodes.extend(split_node_images(ond))
+    return new_nodes
+def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
+    new_nodes = []
+    def split_node_links(node:TextNode)->list[TextNode]:
+        anchors = extract_markdown_links(node.text)
+        alinks = [f"[{alt}]({url})" for alt, url in anchors]
+        inds = [ match.start() for match in re.finditer(r"\[.*?\]\(.*?\)",node.text)]
+        sti = 0
+        nodes = []
+        for i,ind in enumerate(inds):
+            if sti < ind:
+                s = node.text[sti:ind]
+                nodes.append(TextNode(s,TextType.TEXT))
+            ln = len(alinks[i])
+            sti = ind + ln
+            nodes.append(TextNode(anchors[i][0],TextType.LINK,anchors[i][1]))
+        if sti < len(node.text):
+            s = node.text[sti:len(node.text)]
+            nodes.append(TextNode(s,TextType.TEXT))
+        return nodes
+    for ond in old_nodes:
+        if ond.text_type != TextType.TEXT:
+            new_nodes.append(ond)
+            continue
+        new_nodes.extend(split_node_links(ond))
+    return new_nodes
+
+def text_to_textnodes(text:str)->list[TextNode]:
+    nd = TextNode(text,TextType.TEXT)
+    delims = [('**',TextType.BOLD),('_',TextType.ITALIC),('`',TextType.CODE)]
+    nodes = [nd]
+    for delim,type in delims:
+        nodes = split_nodes_delimiter(nodes,delim,type)
+        # print(nodes)
+    nodes = split_nodes_image(nodes)
+    # print(nodes)
+    nodes = split_nodes_link(nodes)
+    # print(nodes)
+    return nodes

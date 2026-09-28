@@ -2,14 +2,14 @@ import re
 
 def extract_markdown_images(text:str)->list[tuple[str,str]]:
     matches:list[str] = re.findall(r"\!\[.*?\]\(.*?\)",text)
-    print(matches)
+    # print(matches)
     imgs = []
     for match in matches:
         parts = match.split('](')
         if len(parts) != 2:
             raise ValueError("Image link format is invalid")
-        alt = parts[0][2:].strip()
-        url = parts[1][:-1].strip()
+        alt = parts[0][2:]
+        url = parts[1][:-1]
         imgs.append((alt,url))
     return imgs
 
@@ -20,8 +20,8 @@ def extract_markdown_links(text:str)->list[tuple[str,str]]:
         parts = match.split('](')
         if len(parts) != 2:
             raise ValueError("Anchor link format is invalid")
-        alt = parts[0][1:].strip()
-        url = parts[1][:-1].strip()
+        alt = parts[0][1:]
+        url = parts[1][:-1]
         links.append((alt,url))
     return links
 
