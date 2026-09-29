@@ -18,7 +18,6 @@ def extract_title(markdown:str)->str:
 
 def generate_page(from_path, template_path, dest_path,basepath='/'):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
-    from_path, template_path, dest_path = os.path.join(basepath,from_path),os.path.join(basepath,template_path),os.path.join(basepath,dest_path)
     if not os.path.exists(from_path) or not os.path.exists(template_path):
         raise FileNotFoundError(f"{from_path} or {template_path} doesnt exist")
     src, template = "",""
@@ -36,10 +35,10 @@ def generate_page(from_path, template_path, dest_path,basepath='/'):
         f.write(final_doc)
 
 def generate_pages_recursive(dir_path_content, template_path, dest_dir_path,basepath='/'):
-    for item in os.listdir(os.path.join(basepath,dir_path_content)):
+    for item in os.listdir(dir_path_content):
         item_path = os.path.join(dir_path_content,item)
         dest_item_path = os.path.join(dest_dir_path,item)
-        if os.path.isfile(os.path.join(basepath,item_path)):
+        if os.path.isfile(item_path):
             generate_page(item_path,template_path,dest_item_path.replace('.md','.html'),basepath=basepath)
         else:
             generate_pages_recursive(item_path,template_path,dest_item_path,basepath=basepath)
@@ -78,7 +77,7 @@ def main():
     print(TextNode1)
     parser = argparse.ArgumentParser(description="static site generator")
     parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
-    parser.add_argument("basepath",type=str,help="basepath",default="/")
+    parser.add_argument("basepath",type=str,help="basepath",default="./")
     args = parser.parse_args()
     clean(args.verbose)
     basepath=args.basepath
