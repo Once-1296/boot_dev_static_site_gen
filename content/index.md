@@ -1,46 +1,23 @@
-# Tolkien Fan Club
+# Why I like Flowers
 
-![JRR Tolkien sitting](/images/tolkien.png)
+Flowers are **pretty** (duhh).
 
-Here's the deal, **I like Tolkien**.
+But seriously though, I just find the fact how these little things have so much beauty in them.
 
-> "I am in fact a Hobbit in all but size."
->
-> -- J.R.R. Tolkien
+- They have geometric patterns in them (_Math Nerd_ hehe)
+- They show a variety of colors
+- They live for a short while, but still show the same cycle of growth like other species
+- Despite not having a face or voice, somehow they can convery emotions (just see a bloomed flower versus a wilting one)
 
-## Blog posts
+## My favorite flowers
 
-- [Why Glorfindel is More Impressive than Legolas](/blog/glorfindel)
-- [Why Tom Bombadil Was a Mistake](/blog/tom)
-- [The Unparalleled Majesty of "The Lord of the Rings"](/blog/majesty)
+1. [Nemophila](/blog/nemophila/index.md)
+2. [Rose](/blog/roses/index.md)
+3. [Tulip](/blog/tulips/index.md)
 
-## Reasons I like Tolkien
+To be reallyyy _honest_ I kinda don't care much about any type of flower, I just like them based on my mood.
+I usually like the blue colored ones the most.
 
-- You can spend years studying the legendarium and still not understand its depths
-- It can be enjoyed by children and adults alike
-- Disney _didn't ruin it_ (okay, but Amazon might have)
-- It created an entirely new genre of fantasy
+## Contact
 
-## My favorite characters (in order)
-
-1. Gandalf
-2. Bilbo
-3. Sam
-4. Glorfindel
-5. Galadriel
-6. Elrond
-7. Thorin
-8. Sauron
-9. Aragorn
-
-Here's what `elflang` looks like (the perfect coding language):
-
-```
-func main(){
-    fmt.Println("Aiya, Ambar!")
-}
-```
-
-Want to get in touch? [Contact me here](/contact).
-
-This site was generated with a custom-built [static site generator](https://www.boot.dev/courses/build-static-site-generator-python) from the course on [Boot.dev](https://www.boot.dev).
+[helloo](/contact/index.md)

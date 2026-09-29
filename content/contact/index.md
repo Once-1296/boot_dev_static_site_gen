@@ -2,8 +2,8 @@
 
 [< Back Home](/)
 
-Give me a call anytime to chat about Tolkien!
+Give me a call anytime (disappears)!
 
-`555-555-5555`
+`123-456-7890`
 
-**"Váya márië."**
+**"Adios"**
