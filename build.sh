@@ -1,0 +1,1 @@
+python3 src/main.py ${1:+"$1"} "/Once-1296/boot_dev_static_site_gen/"
